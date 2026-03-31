@@ -44,10 +44,12 @@ def compute_laplacian(A):
 def spectral_analysis(L):
     """Eigendecomposition of L. eigenvalues is resonant frequency of the molecule, eigen vectors is the new coordinate system"""
     eigenvalues, eigenvectors = eigh(L) #eigh is for symmetric matrices more stable than eig
+    fingerprint = np.round(eigenvalues, 4).toList()
+    #we round it to 4 decimals to catch isospectral graphs despite noise
 
     #spectral gap : diff betn lambda 1 and lambda 2, 
     #high gap is well connected rigid, low gap is loossely connected more reactive
-    spectral_gap = eigenvalues[1] - eigenvalues[0]
+    spectral_gap = eigenvalues[1] if len(eigenvalues) > 1 else 0
     return eigenvalues, eigenvectors, spectral_gap
 
 

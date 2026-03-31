@@ -18,7 +18,7 @@ L = I - D^(-1/2) A D^(-1/2)
 
 where:
 - `A` is the adjacency matrix (bond connectivity)
-- `D` is the degree matrix (number of bonds per atom)
+- `D` is the degree matrix (number of bonds per atom)can 
 - `I` is the identity matrix
 
 ### Spectral Properties
