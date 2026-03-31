@@ -182,8 +182,9 @@ for name, smiles in molecules.items():
     x_tensor = torch.tensor(X, dtype=torch.float32)
     with torch.no_grad():
         pred = model(x_tensor, L_tilde)
+    status = "High Integrity/Aromatic" if gap>0.1 else "Flexible/Complex"
     print(f"Model output (untrained): {pred.item():.4f}")
-    results[name] = {"spectral_gap": gap, "n_atoms": len(X)}
+    results[name] = {"spectral_gap": gap ({status}), "n_atoms": len(X)}
 
 print("\n── Summary ──")
 for name, r in results.items():
