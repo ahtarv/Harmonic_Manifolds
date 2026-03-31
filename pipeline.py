@@ -106,6 +106,9 @@ def plot_dashboard(smiles, name):
     L = compute_laplacian(A)
     eigenvalues, eigenvectors, gap = spectral_analysis(L)
     embedding = spectral_embedding(eigenvectors)
+    fiedler_vector = eigenvectors[:,1]
+
+    nodal_colors = ['#ff7f0e', if val > 0 else '#1f77b4' for val in fiedler_vector]
 
     print(f"\n{'─'*40}")
     print(f"Molecule : {name}")
@@ -129,7 +132,7 @@ def plot_dashboard(smiles, name):
     atomic_nums = X[:, 0]
     colors = plt.cm.plasma(atomic_nums / atomic_nums.max())
     ax2.scatter(embedding[:, 0], embedding[:, 1], embedding[:, 2],
-                c=colors, s=80, alpha=0.9)
+                c=nodal_colors, s=100, edgecolors = 'white', alpha=0.9)
     # Draw bonds in spectral space
     for i in range(len(A)):
         for j in range(i+1, len(A)):
