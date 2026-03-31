@@ -1,0 +1,46 @@
+PS C:\Users\Lenovo\Desktop\Harmonic_Manifolds> python pipeline.py
+Model parameters: 4065
+────────────────────────────────────────
+Molecule : Caffeine
+Atoms    : 24
+Spectral Gap: 0.0546  (flexible/reactive)
+Saved: caffeine_dashboard.png
+Model output (untrained): 0.3317
+────────────────────────────────────────
+Molecule : Aspirin
+Atoms    : 21
+Spectral Gap: 0.0391  (flexible/reactive)
+Saved: aspirin_dashboard.png
+Model output (untrained): 0.3275
+────────────────────────────────────────
+Molecule : Benzene
+Atoms    : 12
+Spectral Gap: 0.2324  (flexible/reactive)
+Saved: benzene_dashboard.png
+Model output (untrained): 0.3211
+────────────────────────────────────────
+Molecule : Dopamine
+Atoms    : 22
+Spectral Gap: 0.0399  (flexible/reactive)
+Saved: dopamine_dashboard.png
+Model output (untrained): 0.3226
+────────────────────────────────────────
+Molecule : LSD
+Atoms    : 49
+Spectral Gap: 0.0125  (flexible/reactive)
+Saved: lsd_dashboard.png
+Model output (untrained): 0.3217
+────────────────────────────────────────
+Molecule : Psilocybin
+Atoms    : 36
+Spectral Gap: 0.0160  (flexible/reactive)
+Saved: psilocybin_dashboard.png
+Model output (untrained): 0.3394
+── Summary ──
+Caffeine     | gap=0.0546 | atoms=24
+Aspirin      | gap=0.0391 | atoms=21
+Benzene      | gap=0.2324 | atoms=12
+Dopamine     | gap=0.0399 | atoms=22
+LSD          | gap=0.0125 | atoms=49
+Psilocybin   | gap=0.0160 | atoms=36
+PS C:\Users\Lenovo\Desktop\Harmonic_Manifolds>

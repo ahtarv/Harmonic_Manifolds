@@ -22,23 +22,23 @@ def mol_to_graph(smiles):
         features.append([
             atom.GetAtomicNum(),
             atom.GetDegree(),
-            int(atom.GetIsAromatic())
+            int(atom.GetIsAromatic()),
             atom.GetFormalCharge(),
         ])
     X = np.array(features, dtype=np.float32)
 
     A = np.zeros((n,n), dtype = np.float32)
     for bond in mol.GetBonds():
-        i, j = bond.GetBeginAtomIdx(), bond.GetBeginAtomIdx()
+        i, j = bond.GetBeginAtomIdx(), bond.GetEndAtomIdx()
         A[i,j] = A[j,i] = 1.0
 
     return X, A, mol 
 
-def compute_lapalcian(A):
-    """ normalized lapalacian is L = I - [D(raised to -1/2)*A*D(raised to 1/2)]"""
+def compute_laplacian(A):
+    """ normalized laplacian is L = I - [D(raised to -1/2)*A*D(raised to 1/2)]"""
     D = np.diag(A.sum(axis=1))
     D_invsqrt = np.diag(1.0/ np.sqrt(A.sum(axis=1).clip(1e-8)))
-    L = np.eyes(len(A)) - D_invsqrt @ A @ D_invsqrt
+    L = np.eye(len(A)) - D_invsqrt @ A @ D_invsqrt
     return L 
 
 def spectral_analysis(L):
@@ -68,7 +68,7 @@ class ChebConv(nn.Module):
 
     def forward(self, x, L_tilde):
         """x is node features, L_tilde is scaled Laplacian"""
-        Tx = [x, L_tilde, @ x]
+        Tx = [x, L_tilde @ x]
         for k in range(2, self.K):
             Tx.append(2 * L_tilde @ Tx[-1] - Tx[-2])
 
@@ -88,9 +88,9 @@ class SpectralGNN(nn.Module):
         )
     
     def forward(self, x, L_tilde):
-        x = F.ReLU(self.conv1(x, L_tilde))
-        X = F.ReLU(self.conv2(x, L_tilde))
-        X = x.mean(dim=0)
+        x = F.relu(self.conv1(x, L_tilde))
+        x = F.relu(self.conv2(x, L_tilde))
+        x = x.mean(dim=0)
         return self.head(x)
 
 def make_L_tilde(L):
